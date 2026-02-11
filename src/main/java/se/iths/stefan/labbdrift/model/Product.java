@@ -1,4 +1,4 @@
-package se.iths.stefan.labbdrift;
+package se.iths.stefan.labbdrift.model;
 
 import jakarta.persistence.*;
 
