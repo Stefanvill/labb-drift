@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import se.iths.stefan.labbdrift.model.Product;
+import se.iths.stefan.labbdrift.service.ProductService;
 
 @Controller
 @RequestMapping("/products")
