@@ -4,15 +4,18 @@ import org.springframework.stereotype.Service;
 import se.iths.stefan.labbdrift.exception.ResourcesNotFoundException;
 import se.iths.stefan.labbdrift.model.Product;
 import se.iths.stefan.labbdrift.repository.ProductRepository;
+import se.iths.stefan.labbdrift.validator.ProductValidator;
 
 import java.util.List;
 
 @Service
 public class ProductService {
     private final ProductRepository repo;
+    private final ProductValidator productValidator;
 
-    public ProductService(ProductRepository repo) {
+    public ProductService(ProductRepository repo, ProductValidator productValidator) {
         this.repo = repo;
+        this.productValidator = productValidator;
     }
 
     public List<Product> getAll() {
@@ -25,12 +28,14 @@ public class ProductService {
     }
 
     public Product create(Product product) {
+        productValidator.validate(product);
         return repo.save(product);
     }
 
     public Product update(Long id, Product updated) {
-        Product existing = getOne(id);
+        productValidator.validate(updated);
 
+        Product existing = getOne(id);
         existing.setName(updated.getName());
         existing.setPrice(updated.getPrice());
         existing.setStock(updated.getStock());
