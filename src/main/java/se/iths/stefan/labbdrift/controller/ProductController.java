@@ -19,13 +19,13 @@ public class ProductController {
     @GetMapping
     public String list(Model model) {
         model.addAttribute("products", service.getAll());
-        return "products/list";
+        return "products";
     }
 
     @GetMapping("/new")
     public String createForm(Model model) {
         model.addAttribute("product", new Product());
-        return "products/new";
+        return "create-product";
     }
 
     @PostMapping
@@ -37,7 +37,7 @@ public class ProductController {
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable Long id, Model model) {
         model.addAttribute("product", service.getOne(id));
-        return "products/edit";
+        return "edit-product";
     }
 
     @PostMapping("/{id}")

@@ -1,7 +1,7 @@
 package se.iths.stefan.labbdrift.service;
 
 import org.springframework.stereotype.Service;
-import se.iths.stefan.labbdrift.exception.ResourcesNotFoundException;
+import se.iths.stefan.labbdrift.exception.product.ProductNotFoundException;
 import se.iths.stefan.labbdrift.model.Product;
 import se.iths.stefan.labbdrift.repository.ProductRepository;
 
@@ -21,7 +21,7 @@ public class ProductService {
 
     public Product getOne(Long id) {
         return repo.findById(id)
-                .orElseThrow(() -> new ResourcesNotFoundException("Product with id " + id + " not found"));
+                .orElseThrow(() -> new ProductNotFoundException("Product with id " + id + " not found"));
     }
 
     public Product create(Product product) {
