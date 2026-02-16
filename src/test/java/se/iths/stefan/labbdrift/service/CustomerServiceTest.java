@@ -110,5 +110,4 @@ public class CustomerServiceTest {
         verify(customerValidator).validateCustomerEmail("Stefan@hotmail.com");
         verify(customerRepository).save(updated);
     }
-
 }
