@@ -1,26 +1,26 @@
 package se.iths.stefan.labbdrift.validator;
 
 import org.springframework.stereotype.Component;
-import se.iths.stefan.labbdrift.exception.CustomerNotFoundException;
+import se.iths.stefan.labbdrift.exception.InvalidCustomerException;
 
 @Component
 public class CustomerValidator {
 
     public void validateCustomerFirstName(String firstName) {
-        if (firstName == null || firstName.isEmpty()) {
-            throw new CustomerNotFoundException("First name can not be empty");
+        if (firstName == null || firstName.isBlank()) {
+            throw new InvalidCustomerException("First name can not be empty");
         }
     }
 
     public void validateCustomerLastName(String lastName) {
-        if (lastName == null || lastName.isEmpty()) {
-            throw new CustomerNotFoundException("Last name can not be empty");
+        if (lastName == null || lastName.isBlank()) {
+            throw new InvalidCustomerException("Last name can not be empty");
         }
     }
 
     public void validateCustomerEmail(String email) {
-        if (email == null || email.isEmpty()) {
-            throw new CustomerNotFoundException("Email can not be empty");
+        if (email == null || email.isBlank()) {
+            throw new InvalidCustomerException("Email can not be empty");
         }
     }
 }
