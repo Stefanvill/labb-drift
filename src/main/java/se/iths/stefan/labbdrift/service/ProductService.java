@@ -10,43 +10,45 @@ import java.util.List;
 
 @Service
 public class ProductService {
-    private final ProductRepository repo;
+
+    private final ProductRepository productRepository;
     private final ProductValidator productValidator;
 
-    public ProductService(ProductRepository repo, ProductValidator productValidator) {
-        this.repo = repo;
+    public ProductService(ProductRepository productRepository, ProductValidator productValidator) {
+        this.productRepository = productRepository;
         this.productValidator = productValidator;
     }
 
-    public List<Product> getAll() {
-        return repo.findAll();
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
     }
 
-    public Product getOne(Long id) {
-        return repo.findById(id)
+    public Product getProduct(Long id) {
+        return productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product with id " + id + " not found"));
     }
 
-    public Product create(Product product) {
+    public Product createProduct(Product product) {
         productValidator.validate(product);
-        return repo.save(product);
+        return productRepository.save(product);
     }
 
-    public Product update(Long id, Product updated) {
-        Product existing = getOne(id);
-
+    public Product updateProduct(Long id, Product updated) {
+        Product existing = getProduct(id);
+        
         existing.setName(updated.getName());
         existing.setPrice(updated.getPrice());
         existing.setStock(updated.getStock());
         existing.setActive(updated.isActive());
 
         productValidator.validate(existing);
-        return repo.save(existing);
+
+        return productRepository.save(existing);
     }
 
-
-    public void delete(Long id) {
-        Product existing = getOne(id);
-        repo.delete(existing);
+    public void deleteProduct(Long id) {
+        Product existing = getProduct(id);
+        productRepository.delete(existing);
     }
 }
+
