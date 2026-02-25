@@ -9,7 +9,7 @@
 <h1>Products</h1>
 
 <p>
-    <a href="/products/new">New product</a>
+    <a th:href="@{/products/new}">New product</a>
 </p>
 
 <table border="1" cellpadding="6">
@@ -33,15 +33,17 @@
         <td>
             <a th:href="@{/products/{id}/edit(id=${p.id})}">Edit</a>
 
-            <form th:action="@{/products/{id}/delete(id=${p.id})}"
+            <form th:action="@{/products/{id}(id=${p.id})}"
                   method="post"
                   style="display:inline">
+
+                <input type="hidden" name="_method" value="delete"/>
+
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
-
 </body>
 </html>

@@ -10,45 +10,47 @@ import se.iths.stefan.labbdrift.service.ProductService;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ProductService service;
+    private final ProductService productService;
 
-    public ProductController(ProductService service) {
-        this.service = service;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
-
+    
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("products", service.getAll());
+    public String getAllProducts(Model model) {
+        model.addAttribute("products", productService.getAllProducts());
         return "products/products";
     }
 
     @GetMapping("/new")
-    public String createForm(Model model) {
+    public String showCreateForm(Model model) {
         model.addAttribute("product", new Product());
         return "products/create-product";
     }
 
     @PostMapping
-    public String create(@ModelAttribute Product product) {
-        service.create(product);
+    public String createProduct(@ModelAttribute Product product) {
+        productService.createProduct(product);
         return "redirect:/products";
     }
 
     @GetMapping("/{id}/edit")
-    public String editForm(@PathVariable Long id, Model model) {
-        model.addAttribute("product", service.getOne(id));
+    public String showUpdateForm(@PathVariable Long id, Model model) {
+        model.addAttribute("product", productService.getProduct(id));
         return "products/edit-product";
     }
 
-    @PostMapping("/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute Product product) {
-        service.update(id, product);
+    @PutMapping("/{id}")
+    public String updateProduct(@PathVariable Long id, @ModelAttribute Product product) {
+        productService.updateProduct(id, product);
         return "redirect:/products";
     }
 
-    @PostMapping("/{id}/delete")
-    public String delete(@PathVariable Long id) {
-        service.delete(id);
+    @DeleteMapping("/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
         return "redirect:/products";
     }
 }
+
+
